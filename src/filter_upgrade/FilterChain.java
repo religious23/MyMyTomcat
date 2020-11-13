@@ -28,6 +28,10 @@ public class FilterChain {
 
     private Servlet servlet;
 
+    public FilterChain() {
+
+    }
+
     private void add(Filter filter) {
         chain.add(filter);
     }
@@ -69,6 +73,7 @@ public class FilterChain {
     public boolean doFilter(Request request, Response response) {
         // List { [],[],[],[]  } 里面有四个过滤器 你要把四个过滤器都执行完 你才能执行service 方法
         // 到达尽头
+
         if (index == chain.size()) {
             try {
                 servlet.service(request, response);

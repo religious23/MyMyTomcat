@@ -50,30 +50,32 @@ public class Server {
                 Servlet servlet = clazz.newInstance();// MyServlet
 
 //                 执行过滤器操作
-//                filterExec(request);
+                //filterExec(request);
                 filterUpgradeExec(servlet, request, response);// 最终版
 
 //                通过过滤器条件来调用service
-//                servlet.service(request, response);
+               // servlet.service(request, response);
             } else {
                 // mapping 不存在
                 response.write("Route doesn't exist:" + url);
             }
+
+            response.close();
         }
     }
 
     /**
      * 做过滤器内容
      */
-    public static void filterExec(Request request) {
-//        final FilterChain filterChain = new FilterChain();
-//        filterChain.doFilter(request);
-    }
+   /* public static void filterExec(Request request) {
+        final FilterChain filterChain = new FilterChain();
+        filterChain.doFilter(request);
+    }*/
 
 
     public static void filterUpgradeExec(Servlet servlet, Request request, Response response) {
         final FilterChain filterChain = new FilterChain(servlet);
-//        filterChain.doFilter(request, response, filterChain);
+        //filterChain.doFilter(request, response, filterChain);
         filterChain.doFilter(request, response);
     }
 

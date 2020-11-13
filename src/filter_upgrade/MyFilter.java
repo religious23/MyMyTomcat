@@ -3,6 +3,8 @@ package filter_upgrade;
 import io.Request;
 import io.Response;
 
+import java.io.IOException;
+
 /**
  * @author 王文
  * @date 2020/11/13
@@ -18,13 +20,19 @@ public class MyFilter implements Filter {
      */
     @Override
     public boolean doFilter(Request request, Response response, FilterChain filterChain) {
-        System.out.println("MyFilter request处理");
+        try {
+            System.out.println("MyFilter request处理(前置处理)");
+            response.write("MyFilter request1");
 
-        filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response);
 
-        System.out.println("MyFilter response处理");
+            System.out.println("MyFilter response处理(后置处理)");
+            response.write("MyFilter response2");
 
-
-        return true;
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
